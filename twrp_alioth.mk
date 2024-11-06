@@ -16,10 +16,10 @@ $(call inherit-product-if-exists, $(DEVICE_PATH)/fox_mikona.mk)
 # Inherit from alioth device
 $(call inherit-product, device/xiaomi/alioth/device.mk)
 
-PRODUCT_DEVICE := alioth
 PRODUCT_NAME := twrp_alioth
-PRODUCT_BRAND := Redmi
-PRODUCT_MODEL := M2012K11AC
-PRODUCT_MANUFACTURER := xiaomi
+PRODUCT_DEVICE := alioth
+PRODUCT_BRAND := Xiaomi
+PRODUCT_MANUFACTURER := Xiaomi
+PRODUCT_MODEL := Redmi K40 / POCO F3 / Mi 11X 
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
