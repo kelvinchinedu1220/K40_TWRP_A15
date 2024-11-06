@@ -170,6 +170,21 @@ TARGET_USES_LOGD := true
 TW_EXCLUDE_APEX := true
 TW_SUPPORT_INPUT_AIDL_HAPTICS := true
 
+# SkyHawk Specific Build Flags
+SHRP_PATH := $(DEVICE_PATH)
+SHRP_OFFICIAL := true
+SHRP_MAINTAINER := "POCO F3"
+SHRP_DEVICE_CODE := avicii
+SHRP_REC_TYPE := Treble
+SHRP_DEVICE_TYPE := A/B
+SHRP_NOTCH := true
+SHRP_EXPRESS := true
+SHRP_DARK := true
+SHRP_EDL_MODE := 1
+SHRP_INTERNAL := /sdcard
+SHRP_OTG := /usb_otg
+SHRP_FLASH := 1
+
 # Python
 TW_INCLUDE_PYTHON := true
 
