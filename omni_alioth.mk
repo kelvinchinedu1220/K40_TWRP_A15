@@ -13,9 +13,6 @@ DEVICE_PATH := device/xiaomi/$(PRODUCT_RELEASE_NAME)
 # Inherit from alioth device
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 
-# Inherit any pbrp-specific settings
-$(call inherit-product-if-exists, $(DEVICE_PATH)/fox_mikona.mk)
-
 # Inherit some common pbrp stuff
 $(call inherit-product, vendor/pb/config/common.mk)
 
