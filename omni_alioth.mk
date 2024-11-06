@@ -11,7 +11,7 @@ DEVICE_PATH := device/xiaomi/alioth
 PRODUCT_RELEASE_NAME := alioth
 
 # Inherit from alioth device
-(call inherit-product, device/xiaomi/alioth/device.mk)
+$(call inherit-product, device/xiaomi/alioth/device.mk)
 
 # Inherit some common pbrp stuff
 $(call inherit-product, vendor/pb/config/common.mk)
