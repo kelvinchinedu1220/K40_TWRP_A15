@@ -5,20 +5,20 @@
 # SPDX-License-Identifier: GPL-3.0-or-later
 #
 
+DEVICE_PATH := device/xiaomi/alioth
+
 # Release name
 PRODUCT_RELEASE_NAME := alioth
 
-DEVICE_PATH := device/xiaomi/$(PRODUCT_RELEASE_NAME)
-
 # Inherit from alioth device
-$(call inherit-product, $(DEVICE_PATH)/device.mk)
+(call inherit-product, device/xiaomi/alioth/device.mk)
 
 # Inherit some common pbrp stuff
 $(call inherit-product, vendor/pb/config/common.mk)
 
 # Device identifier. This must come after all inclusions
-PRODUCT_NAME := omni_$(PRODUCT_RELEASE_NAME)
-PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
+PRODUCT_NAME := omni_alioth
+PRODUCT_DEVICE := alioth
 PRODUCT_BRAND := POCO
 PRODUCT_MANUFACTURER := Xiaomi
 PRODUCT_MODEL := POCO F3
