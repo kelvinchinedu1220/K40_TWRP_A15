@@ -13,9 +13,6 @@ PRODUCT_RELEASE_NAME := alioth
 # Inherit from alioth device
 $(call inherit-product, $(DEVICE_PATH)/device.mk)
 
-# Inherit any OrangeFox-specific settings
-$(call inherit-product-if-exists, $(DEVICE_PATH)/fox_mikona.mk)
-
 # Inherit some common twrp stuff
 $(call inherit-product, vendor/twrp/config/common.mk)
 
