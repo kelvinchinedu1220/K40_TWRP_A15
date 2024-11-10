@@ -1,22 +1,30 @@
 #
-# Copyright (C) 2024 The Android Open Source Project
-# Copyright (C) 2024 SebaUbuntu's TWRP device tree generator
-#
 # SPDX-License-Identifier: Apache-2.0
 #
+# Copyright (C) 2021-2024 The OrangeFox Recovery Project
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
 
-LOCAL_PATH := device/xiaomi/alioth
+# Release name
+PRODUCT_RELEASE_NAME := alioth
 
-# Inherit some common twrp stuff.
-$(call inherit-product, vendor/twrp/config/common.mk)
+DEVICE_PATH := device/xiaomi/$(PRODUCT_RELEASE_NAME)
 
 # Inherit from alioth device
-$(call inherit-product, device/xiaomi/alioth/device.mk)
+$(call inherit-product, $(DEVICE_PATH)/device.mk)
 
-PRODUCT_DEVICE := alioth
-PRODUCT_NAME := twrp_alioth
-PRODUCT_BRAND := Redmi
-PRODUCT_MODEL := M2012K11AC
-PRODUCT_MANUFACTURER := xiaomi
+# Inherit any OrangeFox-specific settings
+$(call inherit-product-if-exists, $(DEVICE_PATH)/fox_mikona.mk)
+
+# Inherit some common twrp stuff
+$(call inherit-product, vendor/twrp/config/common.mk)
+
+# Device identifier. This must come after all inclusions
+PRODUCT_NAME := twrp_$(PRODUCT_RELEASE_NAME)
+PRODUCT_DEVICE := $(PRODUCT_RELEASE_NAME)
+PRODUCT_BRAND := POCO
+PRODUCT_MANUFACTURER := Xiaomi
+PRODUCT_MODEL := POCO F3
 
 PRODUCT_GMS_CLIENTID_BASE := android-xiaomi
+#
