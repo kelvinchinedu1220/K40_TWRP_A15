@@ -120,25 +120,34 @@ PRODUCT_PACKAGES += \
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     vendor/recovery/security/miui
 
-# vendor_boot
-ifeq ($(FOX_VENDOR_BOOT_RECOVERY),1)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/virtual_ab_ota/launch_with_vendor_ramdisk.mk)
-$(call inherit-product, $(SRC_TARGET_DIR)/product/generic_ramdisk.mk)
+ fscrypt policy
+TW_USE_FSCRYPT_POLICY := 2
 
-# Enable project quotas and casefolding for emulated storage without sdcardfs
-$(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
+# Display
+TARGET_SCREEN_HEIGHT := 2400
+TARGET_SCREEN_WIDTH := 1080
 
+# Dynamic partitions
+PRODUCT_USE_DYNAMIC_PARTITIONS := true
+
+# Qcom standerd Decryption
 PRODUCT_PACKAGES += \
-	linker.vendor_ramdisk \
-	e2fsck.vendor_ramdisk \
-	resize2fs.vendor_ramdisk \
-	fsck.vendor_ramdisk \
-	tune2fs.vendor_ramdisk
+    qcom_decrypt \
+    qcom_decrypt_fbe
 
-# copy vendor_boot fstab to first_stage_ramdisk
-PRODUCT_COPY_FILES += \
-	$(DEVICE_PATH)/recovery/root/fstab-generic.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
-	# $(DEVICE_PATH)/recovery/root/fstab.qcom:$(TARGET_COPY_OUT_VENDOR_RAMDISK)/first_stage_ramdisk/fstab.qcom
-endif
-# end: vendor_boot
-#
+# fastbootd
+PRODUCT_PACKAGES += \
+    android.hardware.fastboot@1.0-impl-mock \
+	android.hardware.fastboot@1.0-impl-mock.recovery \
+    fastbootd
+
+# Apex libraries
+PRODUCT_HOST_PACKAGES += \
+    libandroidicu
+
+# HACK: Set vendor patch level
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.vendor.build.security_patch=2099-12-31
+
+# For building with minimal manifest
+ALLOW_MISSING_DEPENDENCIES := true
