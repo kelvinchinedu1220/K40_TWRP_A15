@@ -120,7 +120,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_EXTRA_RECOVERY_KEYS += \
     vendor/recovery/security/miui
 
- fscrypt policy
+# fscrypt policy
 TW_USE_FSCRYPT_POLICY := 2
 
 # Display
