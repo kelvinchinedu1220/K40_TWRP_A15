@@ -151,3 +151,41 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # For building with minimal manifest
 ALLOW_MISSING_DEPENDENCIES := true
+
+# Crypto
+TW_INCLUDE_CRYPTO := true
+TW_INCLUDE_CRYPTO_FBE := true
+TW_INCLUDE_FBE_METADATA_DECRYPT := true
+BOARD_USES_QCOM_FBE_DECRYPTION := true
+
+# Vibrator
+TW_SUPPORT_INPUT_AIDL_HAPTICS := true
+
+# TWRP specific build flags
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+TW_THEME := portrait_hdpi
+RECOVERY_SDCARD_ON_DATA := true
+TARGET_RECOVERY_QCOM_RTC_FIX := true
+TW_EXCLUDE_DEFAULT_USB_INIT := true
+TW_EXTRA_LANGUAGES := true
+TW_USE_TOOLBOX := true
+TW_INCLUDE_RESETPROP := true
+TW_INCLUDE_REPACKTOOLS := true
+TW_INPUT_BLACKLIST := "hbtp_vm"
+TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel0-backlight/brightness"
+TW_DEFAULT_BRIGHTNESS := 1200
+TW_Y_OFFSET := 91
+TW_H_OFFSET := -91
+TW_NO_SCREEN_BLANK := true
+TW_EXCLUDE_APEX := true
+TW_DEVICE_VERSION := Nino
+
+# Debug flags
+TWRP_INCLUDE_LOGCAT := true
+TARGET_USES_LOGD := true
+
+# USB Mounting
+TARGET_USE_CUSTOM_LUN_FILE_PATH := "/config/usb_gadget/g1/functions/mass_storage.0/lun.%d/file"
+
+# The path to a temperature sensor
+TW_CUSTOM_CPU_TEMP_PATH := "/sys/devices/virtual/thermal/thermal_zone19/temp"
