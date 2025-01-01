@@ -148,7 +148,10 @@ TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_USES_MKE2FS := true
 
 # System prop
-TARGET_SYSTEM_PROP += $(DEVICE_PATH)/system.prop
+TARGET_SYSTEM_PROP := $(DEVICE_PATH)/system.prop
+
+# recovery fstab
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/recovery/root/system/etc/recovery.fstab
 
 # Super
 BOARD_SUPER_PARTITION_SIZE := 9126805504
@@ -173,19 +176,6 @@ BOARD_USES_QCOM_FBE_DECRYPTION := true
 PLATFORM_SECURITY_PATCH := 2099-12-31
 VENDOR_SECURITY_PATCH := 2099-12-31
 PLATFORM_VERSION := 15
-
-# Additional binaries & libraries needed for recovery
-TARGET_RECOVERY_DEVICE_MODULES += ashmemd
-TW_RECOVERY_ADDITIONAL_RELINK_BINARY_FILES += \
-    $(TARGET_OUT_EXECUTABLES)/ashmemd
-
-TARGET_RECOVERY_DEVICE_MODULES += \
-    ashmemd_aidl_interface-cpp \
-    libashmemd_client
-
-TW_RECOVERY_ADDITIONAL_RELINK_LIBRARY_FILES += \
-    $(TARGET_OUT_SHARED_LIBRARIES)/ashmemd_aidl_interface-cpp.so \
-    $(TARGET_OUT_SHARED_LIBRARIES)/libashmemd_client.so
 
 # Vibrator
 TW_SUPPORT_INPUT_AIDL_HAPTICS := true
