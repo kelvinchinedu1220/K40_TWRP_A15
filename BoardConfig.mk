@@ -48,20 +48,48 @@ BUILD_BROKEN_MISSING_REQUIRED_MODULES := true # may not really be needed
 TARGET_OTA_ASSERT_DEVICE := alioth, aliothin
 
 # Kernel
-BOARD_KERNEL_CMDLINE := console=ttyMSM0,115200n8 \
-        androidboot.hardware=qcom \
-        androidboot.console=ttyMSM0 \
-        androidboot.memcg=1 \
-        lpm_levels.sleep_disabled=1 \
-        video=vfb:640x400,bpp=32,memsize=3072000 \
-        msm_rtb.filter=0x237 \
-        service_locator.enable=1 \
-        androidboot.usbcontroller=a600000.dwc3 \
-        swiotlb=2048 \
-        loop.max_part=7 \
-        cgroup.memory=nokmem,nosocket \
-        reboot=panic_warm \
-        androidboot.selinux=permissive
+BOARD_KERNEL_CMDLINE := "ttyMSM0,115200n8 \
+						earlycon=msm_geni_serial,0xa90000 \
+						androidboot.hardware=qcom \
+						androidboot.console=ttyMSM0 \
+						androidboot.memcg=1 \
+						lpm_levels.sleep_disabled=1 \
+						video=vfb:640x400,bpp=32,memsize=3072000 \
+						msm_rtb.filter=0x237 \
+						service_locator.enable=1 \
+						swiotlb=2048 \
+						androidboot.usbcontroller=a600000.dwc3 \
+						androidboot.selinux=permissive"
+						
+BOARD_KERNEL_IMAGE_NAME := Image
+BOARD_BOOT_HEADER_VERSION := 3
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_BASE          := 0x00000000
+BOARD_RAMDISK_OFFSET       := 0x02000000
+BOARD_KERNEL_TAGS_OFFSET   := 0x00000100
+BOARD_DTB_OFFSET           := 0x01f00000
+BOARD_KERNEL_OFFSET        := 0x00008000
+TARGET_KERNEL_ARCH := arm64
+BOARD_INCLUDE_RECOVERY_DTBO := true
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_MKBOOTIMG_ARGS += --base $(BOARD_KERNEL_BASE)
+BOARD_MKBOOTIMG_ARGS += --pagesize $(BOARD_KERNEL_PAGESIZE)
+BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
+
+# Kernel prebuilt
+TARGET_KERNEL_ARCH := arm64
+TARGET_FORCE_PREBUILT_KERNEL := true
+ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
+TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
+TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb.img
+BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
+BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
+BOARD_KERNEL_SEPARATED_DTBO := 
+endif
 
 BOARD_BOOT_HEADER_VERSION := 3
 BOARD_KERNEL_IMAGE_NAME := Image
@@ -70,24 +98,6 @@ BOARD_VENDOR_BASE    := 0x00000000
 BOARD_KERNEL_OFFSET  := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x01000000
 BOARD_TAGS_OFFSET    := 0x00000100
-
-TARGET_KERNEL_ARCH := arm64
-BOARD_INCLUDE_RECOVERY_DTBO := true
-TARGET_FORCE_PREBUILT_KERNEL := true
-ifeq ($(TARGET_FORCE_PREBUILT_KERNEL),true)
-TARGET_PREBUILT_KERNEL := $(DEVICE_PATH)/prebuilts/kernel
-TARGET_PREBUILT_DTB := $(DEVICE_PATH)/prebuilts/dtb.img
-BOARD_MKBOOTIMG_ARGS += --dtb $(TARGET_PREBUILT_DTB)
-BOARD_INCLUDE_DTB_IN_BOOTIMG := 
-BOARD_PREBUILT_DTBOIMAGE := $(DEVICE_PATH)/prebuilts/dtbo.img
-BOARD_KERNEL_SEPARATED_DTBO := 
-endif
-
-BOARD_MKBOOTIMG_ARGS := \
-            --pagesize $(BOARD_KERNEL_PAGESIZE)
-            --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-            --kernel_offset $(BOARD_KERNEL_OFFSET)
-            --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # Avb
 BOARD_AVB_ENABLE := true
